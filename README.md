@@ -1,3 +1,9 @@
+[![GitHub commit activity](https://img.shields.io/github/commit-activity/m/ваш-юзер/ваш-репозиторий?style=flat-square)](https://github.com/ваш-юзер/ваш-репозиторий)
+[![GitHub stars](https://img.shields.io/github/stars/ваш-юзер/ваш-репозиторий?style=flat-square)](https://github.com/ваш-юзер/ваш-репозиторий)
+[![GitHub release](https://img.shields.io/github/v/release/ваш-юзер/ваш-репозиторий?style=flat-square)](https://github.com/ваш-юзер/ваш-репозиторий/releases)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+[![Documentation](https://img.shields.io/badge/Documentation-ReadTheDocs-blue?style=flat-square)](https://ваш-документация.рф)
+
 # Уведомления о проверке работ на DevMan
 
 ## Содержание
