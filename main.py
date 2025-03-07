@@ -18,6 +18,8 @@ long_polling_url = 'https://dvmn.org/api/long_polling/'
 
 bot = telebot.TeleBot(telegram_token)
 
+if not tg_chat_id.isdigit():
+    raise ValueError('tg_chat_id должен быть целым числом')
 
 def send_telegram_message(message):
     try:
@@ -27,7 +29,6 @@ def send_telegram_message(message):
         print(f"Ошибка при отправке сообщения: {e}")
 
 
-# response = requests.get(url, headers=headers)
 
 def check_reviews():
     timestump = None
@@ -51,7 +52,6 @@ def check_reviews():
 
             response_data = response_long_polling.json()
 
-            # pprint(response_data)
 
             if response_data['status'] == 'timeout':
                 timestump = response_data.get('timestamp_to_request')
