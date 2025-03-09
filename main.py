@@ -1,10 +1,9 @@
 import time
-
 import requests
 import os
-from pprint import pprint
 from dotenv import load_dotenv
 import telebot
+
 
 load_dotenv()
 
@@ -12,9 +11,7 @@ devman_token = os.environ['DEVMAN_TOKEN']
 telegram_token = os.environ['TELEGRAM_TOKEN']
 tg_chat_id = os.environ['CHAT_ID']
 
-url = 'https://dvmn.org/api/user_reviews/'
 long_polling_url = 'https://dvmn.org/api/long_polling/'
-
 
 bot = telebot.TeleBot(telegram_token)
 
@@ -52,7 +49,6 @@ def check_reviews():
 
             response_data = response_long_polling.json()
 
-
             if response_data['status'] == 'timeout':
                 timestump = response_data.get('timestamp_to_request')
             elif response_data['status'] == 'found':
@@ -76,7 +72,7 @@ def check_reviews():
             error_message = "Таймаут ожидания..."
             print(error_message)
             send_telegram_message(error_message)
-            time.sleep(5)  # Ждем перед повторной попыткой
+            time.sleep(5)
         except requests.exceptions.ConnectionError as ce:
             error_message = f"Ошибка соединения: {ce}"
             print(error_message)
