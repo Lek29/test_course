@@ -13,8 +13,9 @@ tg_chat_id = os.environ['CHAT_ID']
 
 long_polling_url = 'https://dvmn.org/api/long_polling/'
 
-if not tg_chat_id.isdigit():
-    raise ValueError('tg_chat_id должен быть целым числом')
+# if not tg_chat_id.isdigit():
+#     raise ValueError('tg_chat_id должен быть целым числом')
+
 
 def send_telegram_message(message):
     try:
@@ -89,5 +90,11 @@ def check_reviews():
 
 if __name__ == '__main__':
     bot = telebot.TeleBot(telegram_token)
+
+    if not tg_chat_id.isdigit():
+        raise ValueError('tg_chat_id должен быть целым числом')
+
     print("Скрипт запущен. Жду проверки работ...")
+
+
     check_reviews()
