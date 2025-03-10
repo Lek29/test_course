@@ -88,13 +88,18 @@ def check_reviews():
             send_telegram_message(error_message)
             time.sleep(5)
 
-if __name__ == '__main__':
-    bot = telebot.TeleBot(telegram_token)
 
+def main():
+    global bot
+    bot = telebot.TeleBot(telegram_token)
     if not tg_chat_id.isdigit():
         raise ValueError('tg_chat_id должен быть целым числом')
 
     print("Скрипт запущен. Жду проверки работ...")
 
-
     check_reviews()
+
+if __name__ == '__main__':
+
+
+    main()
