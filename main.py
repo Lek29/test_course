@@ -5,16 +5,7 @@ from dotenv import load_dotenv
 import telebot
 
 
-load_dotenv()
-
-devman_token = os.environ['DEVMAN_TOKEN']
-telegram_token = os.environ['TELEGRAM_TOKEN']
-tg_chat_id = os.environ['CHAT_ID']
-
 long_polling_url = 'https://dvmn.org/api/long_polling/'
-
-# if not tg_chat_id.isdigit():
-#     raise ValueError('tg_chat_id должен быть целым числом')
 
 
 def send_telegram_message(message):
@@ -92,6 +83,7 @@ def check_reviews():
 def main():
     global bot
     bot = telebot.TeleBot(telegram_token)
+
     if not tg_chat_id.isdigit():
         raise ValueError('tg_chat_id должен быть целым числом')
 
@@ -100,6 +92,9 @@ def main():
     check_reviews()
 
 if __name__ == '__main__':
-
+    load_dotenv()
+    devman_token = os.environ['DEVMAN_TOKEN']
+    telegram_token = os.environ['TELEGRAM_TOKEN']
+    tg_chat_id = os.environ['CHAT_ID']
 
     main()
