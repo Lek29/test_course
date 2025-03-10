@@ -5,9 +5,6 @@ from dotenv import load_dotenv
 import telebot
 
 
-long_polling_url = 'https://dvmn.org/api/long_polling/'
-
-
 def send_telegram_message(message):
     try:
         bot.send_message(tg_chat_id, message)
@@ -33,7 +30,7 @@ def check_reviews():
                 long_polling_url,
                 headers=headers,
                 params=params,
-                timeout=90
+                timeout=10
             )
             response_long_polling.raise_for_status()
 
@@ -96,5 +93,7 @@ if __name__ == '__main__':
     devman_token = os.environ['DEVMAN_TOKEN']
     telegram_token = os.environ['TELEGRAM_TOKEN']
     tg_chat_id = os.environ['CHAT_ID']
+
+    long_polling_url = 'https://dvmn.org/api/long_polling/'
 
     main()
