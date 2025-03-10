@@ -13,8 +13,6 @@ tg_chat_id = os.environ['CHAT_ID']
 
 long_polling_url = 'https://dvmn.org/api/long_polling/'
 
-bot = telebot.TeleBot(telegram_token)
-
 if not tg_chat_id.isdigit():
     raise ValueError('tg_chat_id должен быть целым числом')
 
@@ -90,5 +88,6 @@ def check_reviews():
             time.sleep(5)
 
 if __name__ == '__main__':
+    bot = telebot.TeleBot(telegram_token)
     print("Скрипт запущен. Жду проверки работ...")
     check_reviews()
