@@ -8,7 +8,7 @@ import telebot
 LONG_POLLING_URL = 'https://dvmn.org/api/long_polling/'
 
 
-def send_telegram_message(message):
+def send_telegram_message(bot, message, tg_chat_id):
     bot.send_message(tg_chat_id, message)
     return True
 
@@ -20,7 +20,7 @@ def notify_user_about_success(success):
         print('Сообщение не удалось отправить')
 
 
-def check_reviews():
+def check_reviews(bot, devman_token, tg_chat_id):
     timestamp = None
     while True:
         try:
@@ -59,49 +59,50 @@ def check_reviews():
                     else:
                         message += "Преподавателю все понравилось! Можно приступать к следующему уроку."
 
-                    send_telegram_message(message)
+                    send_telegram_message(bot, message, tg_chat_id)
 
         except requests.exceptions.ReadTimeout:
             error_message = "Таймаут ожидания..."
             print(error_message)
-            send_telegram_message(error_message)
+            send_telegram_message(bot, error_message, tg_chat_id)
             time.sleep(5)
         except requests.exceptions.ConnectionError as ce:
             error_message = f"Ошибка соединения: {ce}"
             print(error_message)
-            send_telegram_message(error_message)
+            send_telegram_message(bot, error_message, tg_chat_id)
             time.sleep(5)
         except requests.exceptions.Timeout:
             error_message = "Превышено время ожидания ответа. Повторная попытка через 5 секунд..."
             print(error_message)
-            send_telegram_message(error_message)
+            send_telegram_message(bot, error_message,tg_chat_id)
             time.sleep(5)
         except Exception as e:
             error_message = f"Неизвестная ошибка: {e}. Скрипт будет перезапущен через 5 секунд..."
             print(error_message)
-            send_telegram_message(error_message)
+            send_telegram_message(bot, error_message, tg_chat_id)
             time.sleep(5)
 
 
 def main():
-    global bot
+    load_dotenv('.env')
+
+    devman_token = os.environ['DEVMAN_TOKEN']
+    telegram_token = os.environ['TELEGRAM_TOKEN']
+    tg_chat_id = os.environ['CHAT_ID']
+
     bot = telebot.TeleBot(telegram_token)
 
     if not tg_chat_id.isdigit():
         raise ValueError('tg_chat_id должен быть целым числом')
 
     print("Скрипт запущен. Жду проверки работ...")
+
     try:
-        success = check_reviews()
+        success = check_reviews(bot, devman_token, tg_chat_id)
         notify_user_about_success(success)
     except Exception as e:
         print(f'Ошибка: {e}')
 
 
 if __name__ == '__main__':
-    load_dotenv()
-    devman_token = os.environ['DEVMAN_TOKEN']
-    telegram_token = os.environ['TELEGRAM_TOKEN']
-    tg_chat_id = os.environ['CHAT_ID']
-
     main()
