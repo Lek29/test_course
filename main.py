@@ -5,10 +5,12 @@ from dotenv import load_dotenv
 import telebot
 
 
+LONG_POLLING_URL = 'https://dvmn.org/api/long_polling/'
+
+
 def send_telegram_message(message):
     bot.send_message(tg_chat_id, message)
     return True
-
 
 
 def notify_user_about_success(success):
@@ -31,7 +33,7 @@ def check_reviews():
             }
 
             response_long_polling = requests.get(
-                long_polling_url,
+                LONG_POLLING_URL,
                 headers=headers,
                 params=params,
                 timeout=10
@@ -95,12 +97,11 @@ def main():
     except Exception as e:
         print(f'Ошибка: {e}')
 
+
 if __name__ == '__main__':
     load_dotenv()
     devman_token = os.environ['DEVMAN_TOKEN']
     telegram_token = os.environ['TELEGRAM_TOKEN']
     tg_chat_id = os.environ['CHAT_ID']
-
-    long_polling_url = 'https://dvmn.org/api/long_polling/'
 
     main()
