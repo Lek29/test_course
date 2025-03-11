@@ -8,10 +8,16 @@ import telebot
 def send_telegram_message(message):
     try:
         bot.send_message(tg_chat_id, message)
-        print(f"Сообщение отправлено: {message}")
+        return True
     except Exception as e:
-        print(f"Ошибка при отправке сообщения: {e}")
+        raise RuntimeError(f"Ошибка при отправке сообщения: {e}")
 
+
+def notify_user_about_success(success):
+    if success:
+        print('Сообщение отправлено')
+    else:
+        print('Сообщение не удалось отправить')
 
 
 def check_reviews():
@@ -86,7 +92,9 @@ def main():
 
     print("Скрипт запущен. Жду проверки работ...")
 
-    check_reviews()
+    success = check_reviews()
+
+    notify_user_about_success(success)
 
 if __name__ == '__main__':
     load_dotenv()
