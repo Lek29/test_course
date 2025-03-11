@@ -21,12 +21,12 @@ def notify_user_about_success(success):
 
 
 def check_reviews():
-    timestump = None
+    timestamp = None
     while True:
         try:
             params = {}
-            if timestump:
-                params['timestump'] = timestump
+            if timestamp:
+                params['timestamp'] = timestamp
 
             headers = {
                 "Authorization": f"Token {devman_token}"
@@ -43,9 +43,9 @@ def check_reviews():
             response_data = response_long_polling.json()
 
             if response_data['status'] == 'timeout':
-                timestump = response_data.get('timestamp_to_request')
+                timestamp = response_data.get('timestamp_to_request')
             elif response_data['status'] == 'found':
-                timestump = response_data.get('last_attempt_timestamp')
+                timestamp = response_data.get('last_attempt_timestamp')
                 for attempt in response_data.get('new_attempts', []):
                     lesson_title = attempt.get('lesson_title')
                     is_negative = attempt.get('is_negative')
