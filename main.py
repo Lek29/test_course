@@ -6,11 +6,9 @@ import telebot
 
 
 def send_telegram_message(message):
-    try:
-        bot.send_message(tg_chat_id, message)
-        return True
-    except Exception as e:
-        raise RuntimeError(f"Ошибка при отправке сообщения: {e}")
+    bot.send_message(tg_chat_id, message)
+    return True
+
 
 
 def notify_user_about_success(success):
@@ -91,10 +89,11 @@ def main():
         raise ValueError('tg_chat_id должен быть целым числом')
 
     print("Скрипт запущен. Жду проверки работ...")
-
-    success = check_reviews()
-
-    notify_user_about_success(success)
+    try:
+        success = check_reviews()
+        notify_user_about_success(success)
+    except Exception as e:
+        print(f'Ошибка: {e}')
 
 if __name__ == '__main__':
     load_dotenv()
