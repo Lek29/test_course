@@ -63,22 +63,18 @@ def check_reviews(bot, devman_token, tg_chat_id):
 
         except requests.exceptions.ReadTimeout:
             error_message = "Таймаут ожидания..."
-            print(error_message)
             send_telegram_message(bot, error_message, tg_chat_id)
             time.sleep(5)
         except requests.exceptions.ConnectionError as ce:
             error_message = f"Ошибка соединения: {ce}"
-            print(error_message)
             send_telegram_message(bot, error_message, tg_chat_id)
             time.sleep(5)
         except requests.exceptions.Timeout:
             error_message = "Превышено время ожидания ответа. Повторная попытка через 5 секунд..."
-            print(error_message)
             send_telegram_message(bot, error_message,tg_chat_id)
             time.sleep(5)
         except Exception as e:
             error_message = f"Неизвестная ошибка: {e}. Скрипт будет перезапущен через 5 секунд..."
-            print(error_message)
             send_telegram_message(bot, error_message, tg_chat_id)
             time.sleep(5)
 
