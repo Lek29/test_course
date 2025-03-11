@@ -36,7 +36,7 @@ def check_reviews(bot, devman_token, tg_chat_id):
                 LONG_POLLING_URL,
                 headers=headers,
                 params=params,
-                timeout=10
+                timeout=90
             )
             response_long_polling.raise_for_status()
 
@@ -60,18 +60,9 @@ def check_reviews(bot, devman_token, tg_chat_id):
                         message += "Преподавателю все понравилось! Можно приступать к следующему уроку."
 
                     send_telegram_message(bot, message, tg_chat_id)
-
-        except requests.exceptions.ReadTimeout:
-            error_message = "Таймаут ожидания..."
-            send_telegram_message(bot, error_message, tg_chat_id)
-            time.sleep(5)
         except requests.exceptions.ConnectionError as ce:
             error_message = f"Ошибка соединения: {ce}"
             send_telegram_message(bot, error_message, tg_chat_id)
-            time.sleep(5)
-        except requests.exceptions.Timeout:
-            error_message = "Превышено время ожидания ответа. Повторная попытка через 5 секунд..."
-            send_telegram_message(bot, error_message,tg_chat_id)
             time.sleep(5)
         except Exception as e:
             error_message = f"Неизвестная ошибка: {e}. Скрипт будет перезапущен через 5 секунд..."
