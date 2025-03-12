@@ -28,7 +28,7 @@ def check_reviews(bot, devman_token, tg_chat_id):
                 LONG_POLLING_URL,
                 headers=headers,
                 params=params,
-                timeout=90
+                timeout=5
             )
             response_long_polling.raise_for_status()
 
@@ -52,6 +52,8 @@ def check_reviews(bot, devman_token, tg_chat_id):
                         message += "Преподавателю все понравилось! Можно приступать к следующему уроку."
 
                     send_telegram_message(bot, message, tg_chat_id)
+        except requests.exceptions.ReadTimeout:
+            continue
         except requests.exceptions.ConnectionError as ce:
             error_message = f"Ошибка соединения: {ce}"
             send_telegram_message(bot, error_message, tg_chat_id)
