@@ -28,7 +28,7 @@ def check_reviews(bot, devman_token, tg_chat_id):
                 LONG_POLLING_URL,
                 headers=headers,
                 params=params,
-                timeout=5
+                timeout=90
             )
             response_long_polling.raise_for_status()
 
