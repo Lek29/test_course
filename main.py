@@ -10,7 +10,6 @@ LONG_POLLING_URL = 'https://dvmn.org/api/long_polling/'
 
 def send_telegram_message(bot, message, tg_chat_id):
     bot.send_message(tg_chat_id, message)
-    return True
 
 
 def notify_user_about_success(success):
