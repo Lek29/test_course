@@ -56,10 +56,6 @@ def check_reviews(bot, devman_token, tg_chat_id):
             error_message = f"Ошибка соединения: {ce}"
             send_telegram_message(bot, error_message, tg_chat_id)
             time.sleep(5)
-        except Exception as e:
-            error_message = f"Неизвестная ошибка: {e}. Скрипт будет перезапущен через 5 секунд..."
-            send_telegram_message(bot, error_message, tg_chat_id)
-            time.sleep(5)
 
 
 def main():
