@@ -12,13 +12,6 @@ def send_telegram_message(bot, message, tg_chat_id):
     bot.send_message(tg_chat_id, message)
 
 
-def notify_user_about_success(success):
-    if success:
-        print('Сообщение отправлено')
-    else:
-        print('Сообщение не удалось отправить')
-
-
 def check_reviews(bot, devman_token, tg_chat_id):
     timestamp = None
     while True:
@@ -85,7 +78,11 @@ def main():
 
     try:
         success = check_reviews(bot, devman_token, tg_chat_id)
-        notify_user_about_success(success)
+
+        if success:
+            print('Сообщение отправлено')
+        else:
+            print('Сообщение не удалось отправить')
     except Exception as e:
         print(f'Ошибка: {e}')
 
